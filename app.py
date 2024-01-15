@@ -1,9 +1,6 @@
 from flask import Flask, request, render_template
 import json,time,requests
-headers = {
-    "Authorization" : "Token r8_2i6XT0gZYIzrw6FVgsl2xWjiBbRFzEj4IZprp",
-    "Content-Type" : "application/json"
-}
+
 app = Flask(__name__)
 @app.route("/",methods=["GET","POST"])
 def index():
@@ -16,6 +13,9 @@ def index():
               "input" : {"prompt":q}
             }
         )
+        headers = {
+            "Authorization" : "Token r8_2i6XT0gZYIzrw6FVgsl2xWjiBbRFzEj4IZprp",
+            "Content-Type" : "application/json"}
         output = requests.post("https://api.replicate.com/v1/predictions", data=body, headers=headers)
         time.sleep(10)
         get_url = output.json()["urls"]["get"]
